@@ -1,0 +1,48 @@
+[gd_scene format=3 uid="uid://bwhqy7xvuxskm"]
+
+[ext_resource type="Script" uid="uid://brxi38phhjwe2" path="res://scripts/actor_drone.gd" id="1_fh2me"]
+[ext_resource type="Script" uid="uid://cpfdnk5hfvsqa" path="res://scripts/ThrusterSystem.gd" id="2_svt78"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_naks1"]
+size = Vector3(0.415, 0.18, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fh2me"]
+size = Vector3(0.42, 0.195, 1)
+
+[node name="actor_drone" type="RigidBody3D" unique_id=1709503449]
+mass = 40.0
+freeze = true
+script = ExtResource("1_fh2me")
+
+[node name="mesh" type="MeshInstance3D" parent="." unique_id=86157662]
+mesh = SubResource("BoxMesh_naks1")
+
+[node name="collision" type="CollisionShape3D" parent="." unique_id=1108427591]
+shape = SubResource("BoxShape3D_fh2me")
+
+[node name="thrusters" type="Node3D" parent="." unique_id=720527641]
+
+[node name="thruster_front" type="Marker3D" parent="thrusters" unique_id=584135655 node_paths=PackedStringArray("core")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4999344)
+script = ExtResource("2_svt78")
+core = NodePath("../..")
+
+[node name="thruster_back" type="Marker3D" parent="thrusters" unique_id=1131961704 node_paths=PackedStringArray("core")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.49893108)
+script = ExtResource("2_svt78")
+core = NodePath("../..")
+
+[node name="thruster_right" type="Marker3D" parent="thrusters" unique_id=1118458186 node_paths=PackedStringArray("core")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21127808, 0, 0)
+script = ExtResource("2_svt78")
+core = NodePath("../..")
+
+[node name="thruster_left" type="Marker3D" parent="thrusters" unique_id=2101896835 node_paths=PackedStringArray("core")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21097377, 0, 0)
+script = ExtResource("2_svt78")
+core = NodePath("../..")
+
+[node name="thruster_down" type="Marker3D" parent="thrusters" unique_id=852727600 node_paths=PackedStringArray("core")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0006696433, -0.08909328, 0)
+script = ExtResource("2_svt78")
+core = NodePath("../..")

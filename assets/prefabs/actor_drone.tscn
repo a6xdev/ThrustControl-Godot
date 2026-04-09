@@ -1,0 +1,125 @@
+[gd_scene format=3 uid="uid://bwhqy7xvuxskm"]
+
+[ext_resource type="Script" uid="uid://brxi38phhjwe2" path="res://scripts/actor_drone.gd" id="1_fh2me"]
+[ext_resource type="Script" uid="uid://cpfdnk5hfvsqa" path="res://scripts/thruster_system.gd" id="2_svt78"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_naks1"]
+size = Vector3(0.415, 0.18, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fh2me"]
+size = Vector3(0.42, 0.195, 1)
+
+[sub_resource type="Gradient" id="Gradient_svt78"]
+offsets = PackedFloat32Array(0.31586242, 1)
+colors = PackedColorArray(0.42569828, 0.2981129, 0.13365498, 1, 0.9564246, 0.83130056, 0.2147948, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_a87t8"]
+gradient = SubResource("Gradient_svt78")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_svt78"]
+emission_shape = 1
+emission_sphere_radius = 0.1
+direction = Vector3(0, 1, 0)
+spread = 0.1
+initial_velocity_min = 1.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.5
+scale_over_velocity_max = 2.0
+color = Color(0.95083797, 0.73681825, 0.3144671, 1)
+color_ramp = SubResource("GradientTexture1D_a87t8")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_a87t8"]
+shading_mode = 0
+vertex_color_use_as_albedo = true
+
+[sub_resource type="SphereMesh" id="SphereMesh_5fhli"]
+material = SubResource("StandardMaterial3D_a87t8")
+radius = 0.05
+height = 0.1
+radial_segments = 32
+rings = 16
+
+[node name="actor_drone" type="RigidBody3D" unique_id=1709503449]
+mass = 40.0
+freeze = true
+linear_damp = 10.0
+script = ExtResource("1_fh2me")
+
+[node name="mesh" type="MeshInstance3D" parent="." unique_id=86157662]
+mesh = SubResource("BoxMesh_naks1")
+
+[node name="collision" type="CollisionShape3D" parent="." unique_id=1108427591]
+shape = SubResource("BoxShape3D_fh2me")
+
+[node name="thrusters" type="Node3D" parent="." unique_id=720527641]
+
+[node name="thruster_front" type="Marker3D" parent="thrusters" unique_id=584135655]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.4999344)
+script = ExtResource("2_svt78")
+max_force = 100.0
+
+[node name="engine_flame" type="GPUParticles3D" parent="thrusters/thruster_front" unique_id=1648158498]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+emitting = false
+amount = 150
+lifetime = 0.6
+draw_order = 3
+process_material = SubResource("ParticleProcessMaterial_svt78")
+draw_pass_1 = SubResource("SphereMesh_5fhli")
+
+[node name="thruster_back" type="Marker3D" parent="thrusters" unique_id=1131961704]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.49893108)
+script = ExtResource("2_svt78")
+max_force = 100.0
+
+[node name="engine_flame" type="GPUParticles3D" parent="thrusters/thruster_back" unique_id=679177583]
+transform = Transform3D(-1, -8.742278e-08, -3.821371e-15, 0, -4.371139e-08, 1, -8.742278e-08, 1, 4.371139e-08, 0, 0, 0)
+emitting = false
+amount = 150
+lifetime = 0.6
+draw_order = 3
+process_material = SubResource("ParticleProcessMaterial_svt78")
+draw_pass_1 = SubResource("SphereMesh_5fhli")
+
+[node name="thruster_right" type="Marker3D" parent="thrusters" unique_id=1118458186]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.21127808, 0, 0)
+script = ExtResource("2_svt78")
+max_force = 100.0
+
+[node name="engine_flame" type="GPUParticles3D" parent="thrusters/thruster_right" unique_id=956807204]
+transform = Transform3D(-4.371139e-08, 1, 4.371139e-08, 0, -4.371139e-08, 1, 1, 4.371139e-08, 1.9106855e-15, 0, 0, 0)
+emitting = false
+amount = 150
+lifetime = 0.6
+draw_order = 3
+process_material = SubResource("ParticleProcessMaterial_svt78")
+draw_pass_1 = SubResource("SphereMesh_5fhli")
+
+[node name="thruster_left" type="Marker3D" parent="thrusters" unique_id=2101896835]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.21097377, 0, 0)
+script = ExtResource("2_svt78")
+max_force = 100.0
+
+[node name="engine_flame" type="GPUParticles3D" parent="thrusters/thruster_left" unique_id=609959440]
+transform = Transform3D(-4.371139e-08, -1, -4.371139e-08, 0, -4.371139e-08, 1, -1, 4.371139e-08, 1.9106855e-15, 0, 0, 0)
+emitting = false
+amount = 150
+lifetime = 0.6
+draw_order = 3
+process_material = SubResource("ParticleProcessMaterial_svt78")
+draw_pass_1 = SubResource("SphereMesh_5fhli")
+
+[node name="thruster_down" type="Marker3D" parent="thrusters" unique_id=852727600]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.09004638, 0)
+script = ExtResource("2_svt78")
+pid_settings = Vector3(1, 0.2, 0.7)
+max_force = 1000.0
+
+[node name="engine_flame" type="GPUParticles3D" parent="thrusters/thruster_down" unique_id=2121004965]
+transform = Transform3D(-1, 8.742278e-08, 0, -8.742278e-08, -1, 0, 0, 0, 1, 0, 0, 0)
+amount = 150
+lifetime = 0.6
+draw_order = 3
+process_material = SubResource("ParticleProcessMaterial_svt78")
+draw_pass_1 = SubResource("SphereMesh_5fhli")
